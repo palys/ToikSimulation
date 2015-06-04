@@ -1,9 +1,11 @@
 package sim.ants.simulation;
 
+import sim.ants.Ant;
+import sim.ants.Direction;
 import sim.simulation.Grid;
 import sim.simulation.Individual;
 
-public class BasicAnt implements Individual<WhiteBlackColor, BasicAnt> {
+public class BasicAnt implements Ant<WhiteBlackColor, BasicAnt> {
 	
 	private int x;
 	
@@ -22,7 +24,7 @@ public class BasicAnt implements Individual<WhiteBlackColor, BasicAnt> {
 	}
 
 	@Override
-	public void doStep(Grid<WhiteBlackColor, BasicAnt> before,
+	public boolean doStep(Grid<WhiteBlackColor, BasicAnt> before,
 			Grid<WhiteBlackColor, BasicAnt> after) {
 		
 		WhiteBlackColor color = before.getColor(x, y);
@@ -34,7 +36,17 @@ public class BasicAnt implements Individual<WhiteBlackColor, BasicAnt> {
 		}
 		
 		after.set(color.oposite(), x, y);
-		after.set(this, x + direction.dx, y + direction.dy); // TODO check if outside grid
+		//System.out.println("After set: color = " + color.oposite() + " at (" + x + ", " + y + ")");
+		x += direction.dx;
+		y += direction.dy;
+		
+		if (x >= 0 && x < after.getWidth() && y >= 0 && y < after.getHeight()) {
+			after.set(this, x, y);
+			return true;
+		}
+		
+		return false;
+		//System.out.println("Individual set at (" + (x + direction.dx) + ", " + (y + direction.dy) + ")");
 		
 	}
 
@@ -42,6 +54,21 @@ public class BasicAnt implements Individual<WhiteBlackColor, BasicAnt> {
 	public void moveTo(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	@Override
+	public String toString() {
+		return "Basic ant at (" + x + ", " + y + ")";
+	}
+
+	@Override
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
 	}
 
 }

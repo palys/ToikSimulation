@@ -7,4 +7,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: sim.ants,
  sim.ants.configuration,
  sim.communication,
+ sim.configuration,
  sim.simulation
