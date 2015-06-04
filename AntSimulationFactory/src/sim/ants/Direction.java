@@ -1,4 +1,4 @@
-package sim.ants.simulation;
+package sim.ants;
 
 public enum Direction {
 
