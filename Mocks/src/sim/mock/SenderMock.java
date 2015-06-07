@@ -7,7 +7,7 @@ public class SenderMock implements Sender {
 
 	@Override
 	public void send(Message<?> message) {
-		// TODO Auto-generated method stub
+		System.out.println(message);
 		
 	}
 
