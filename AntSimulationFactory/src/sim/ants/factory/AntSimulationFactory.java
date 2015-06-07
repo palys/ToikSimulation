@@ -5,21 +5,18 @@ import java.util.Properties;
 import sim.ants.configuration.Configuration;
 import sim.configuration.IncorrectConfigurationException;
 import sim.factory.SimulationFactoryInterface;
-import sim.simulation.Simulation;
 
-public class AntSimulationFactory implements SimulationFactoryInterface {
+public abstract class AntSimulationFactory implements SimulationFactoryInterface {
 	
-	protected final Configuration configuration;
+	protected Configuration configuration;
 	
-	public AntSimulationFactory(Properties properties) throws IncorrectConfigurationException {
-		this.configuration = Configuration.of(properties);
+	public AntSimulationFactory() {
+		
 	}
 	
 	@Override
-	public Simulation createSimulation() {
-		return null;//TODO
+	public void configure(Properties properties) throws IncorrectConfigurationException {
+		this.configuration = Configuration.of(properties);
 	}
-
-
 
 }

@@ -111,10 +111,12 @@ public abstract class AntsSimulation<Col extends Enum<Col>, A extends Ant<Col, A
 	
 	private void send(Map<Direction, Migration<A>> migrations) {
 		for (Map.Entry<Direction, Migration<A>> entry : migrations.entrySet()) {
-			Migration<A> migration = entry.getValue();
-			String address = addressesDictionary.getAddress(entry.getKey().toString());
-			Message<Migration<A>> message = new Message<Migration<A>>(migration, address, iteration);
-			sender.send(message);
+			if (entry.getValue().size() > 0) {
+				Migration<A> migration = entry.getValue();
+				String address = addressesDictionary.getAddress(entry.getKey().toString());
+				Message<Migration<A>> message = new Message<Migration<A>>(migration, address, iteration);
+				sender.send(message);
+			}
 		}
 	}
 	
