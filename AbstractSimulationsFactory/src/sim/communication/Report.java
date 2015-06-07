@@ -1,23 +1,25 @@
 package sim.communication;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Report {
 
 	private final int individualsCount;
 	
-	private final int iterationNumber;
-
-	public Report(int individualsCount, int iterationNumber) {
-		super();
+	private final Map<Object, Integer> colorCount;
+	
+	public Report(int individualsCount) {
 		this.individualsCount = individualsCount;
-		this.iterationNumber = iterationNumber;
+		this.colorCount = new HashMap<Object, Integer>();
 	}
 
 	public int getIndividualsCount() {
 		return individualsCount;
 	}
 
-	public int getIterationNumber() {
-		return iterationNumber;
+	public Map<Object, Integer> getColorCount() {
+		return colorCount;
 	}
 	
 }

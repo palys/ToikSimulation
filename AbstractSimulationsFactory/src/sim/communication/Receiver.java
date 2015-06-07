@@ -4,5 +4,5 @@ import java.util.Collection;
 
 public interface Receiver<T> {
 
-	public Collection<Message<T>> receive();
+	public void receive(Collection<Message<T>> messages);
 }

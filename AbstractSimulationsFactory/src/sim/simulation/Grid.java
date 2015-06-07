@@ -45,19 +45,19 @@ public class Grid<Col, Ind extends Individual<Col, Ind>> implements Iterable<Ind
 	public Iterator<Ind> iterator() {
 		return new Iterator<Ind>() {
 			
-			int x = 0, y = 0;
+			int x = -1, y = 0;
 			
 			private boolean goToNext() {
 				
-				for (int i = x; i < width; i++) {
+				for (int i = x + 1; i < width; i++) {
 					if (!grid[i][y].isEmpty()) {
 						x = i;
 						return true;
 					}
 				}
 				
-				for (int i = 0; i < width; i++) {
-					for (int j = y + 1; j < height; j++) {
+				for (int j = y + 1; j < height; j++) {
+					for (int i = 0; i < width; i++) {
 						if (!grid[i][j].isEmpty()) {
 							x = i;
 							y = j;
@@ -66,17 +66,20 @@ public class Grid<Col, Ind extends Individual<Col, Ind>> implements Iterable<Ind
 					}
 				}
 				
+				x = -1;
+				y = -1;
+				
 				return false;
+			}
+			
+			{
+				goToNext();
 			}
 
 			@Override
 			public boolean hasNext() {
 				
-				if (grid[x][y].isEmpty()) {
-					return goToNext();
-				} else {
-					return true;
-				}
+				return (x >= 0) && (y >= 0) && !grid[x][y].isEmpty();
 			}
 
 			@Override
@@ -114,6 +117,7 @@ public class Grid<Col, Ind extends Individual<Col, Ind>> implements Iterable<Ind
 	}
 	
 	public void set(Ind individual, int x, int y) {
+		System.out.println("Set at (" + x + ", " + y + ")");
 		grid[x][y] = new Field<Col, Ind>(grid[x][y].getColor(), individual);
 	}
 	
@@ -148,6 +152,42 @@ public class Grid<Col, Ind extends Individual<Col, Ind>> implements Iterable<Ind
 		//TODO
 		
 		return neighbors;
+	}
+	
+	public int getColorCount(Col color) {
+		int count = 0;
+		
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (grid[i][j].getColor().equals(color)) {
+					count++;
+				}
+			}
+		}
+		
+		return count;
+	}
+	
+	public int getIndividualsCount() {
+		int count = 0;
+		
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (!grid[i][j].isEmpty()) {
+					count++;
+				}
+			}
+		}
+		
+		return count;
+	}
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for (Ind i : this) {
+			b.append(i.toString()).append("\n");
+		}
+		return b.toString();
 	}
 
 }
