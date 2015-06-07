@@ -3,7 +3,6 @@ package sim.ants.simulation;
 import sim.ants.Ant;
 import sim.ants.Direction;
 import sim.simulation.Grid;
-import sim.simulation.Individual;
 
 public class BasicAnt implements Ant<WhiteBlackColor, BasicAnt> {
 	

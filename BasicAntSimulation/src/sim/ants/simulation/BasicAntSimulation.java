@@ -1,12 +1,10 @@
 package sim.ants.simulation;
 
-import java.util.Collection;
 import java.util.Random;
 
 import sim.ants.AntsSimulation;
 import sim.ants.configuration.Configuration;
-import sim.communication.Message;
-import sim.communication.Migration;
+import sim.communication.Report;
 import sim.simulation.Grid;
 
 public class BasicAntSimulation extends AntsSimulation<WhiteBlackColor, BasicAnt> {
@@ -39,6 +37,17 @@ public class BasicAntSimulation extends AntsSimulation<WhiteBlackColor, BasicAnt
 		} while (!grid.isOccupied(x, y));
 		
 		grid.set(new BasicAnt(x, y), x, y);
+	}
+
+	@Override
+	protected Report generateReport() {
+		Report report = new Report(grid.getIndividualsCount());
+		
+		for (WhiteBlackColor color : WhiteBlackColor.values()) {
+			report.getColorCount().put(color, grid.getColorCount(color));
+		}
+		
+		return report;
 	}
 
 }
