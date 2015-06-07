@@ -4,8 +4,10 @@ Bundle-Name: BasicAntSimulation
 Bundle-SymbolicName: BasicAntSimulation
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: sim.ants,
+Import-Package: org.osgi.framework;version="1.8.0",
+ sim.ants,
  sim.ants.configuration,
+ sim.ants.factory,
  sim.communication,
  sim.configuration,
  sim.simulation
