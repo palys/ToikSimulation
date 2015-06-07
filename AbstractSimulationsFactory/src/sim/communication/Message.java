@@ -25,4 +25,11 @@ public class Message<T> {
 	public int getIteration() {
 		return iteration;
 	}
+
+	@Override
+	public String toString() {
+		return "Message [address=" + address + ", content=" + content
+				+ ", iteration=" + iteration + "]";
+	}
+	
 }

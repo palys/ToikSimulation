@@ -117,7 +117,7 @@ public class Grid<Col, Ind extends Individual<Col, Ind>> implements Iterable<Ind
 	}
 	
 	public void set(Ind individual, int x, int y) {
-		System.out.println("Set at (" + x + ", " + y + ")");
+		//System.out.println("Set at (" + x + ", " + y + ")");
 		grid[x][y] = new Field<Col, Ind>(grid[x][y].getColor(), individual);
 	}
 	

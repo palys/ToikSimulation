@@ -21,5 +21,11 @@ public class Report {
 	public Map<Object, Integer> getColorCount() {
 		return colorCount;
 	}
+
+	@Override
+	public String toString() {
+		return "Report [individualsCount=" + individualsCount + ", colorCount="
+				+ colorCount + "]";
+	}
 	
 }
