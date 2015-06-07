@@ -8,12 +8,13 @@ import sim.ants.configuration.AddressesDictionary;
 import sim.ants.configuration.Configuration;
 import sim.communication.Message;
 import sim.communication.Migration;
+import sim.communication.Report;
 import sim.communication.Sender;
 import sim.mock.SenderMock;
 import sim.simulation.Grid;
 import sim.simulation.Simulation;
 
-public abstract class AntsSimulation<Col, A extends Ant<Col, A>> implements Simulation<Col, A> {
+public abstract class AntsSimulation<Col extends Enum<Col>, A extends Ant<Col, A>> implements Simulation<Col, A> {
 	
 	protected Grid<Col, A> grid;
 	
@@ -21,10 +22,16 @@ public abstract class AntsSimulation<Col, A extends Ant<Col, A>> implements Simu
 	
 	private AddressesDictionary addressesDictionary;
 	
+	private final Configuration config;
+	
+	private int iteration;
+	
 	public AntsSimulation(Configuration config) {
 		sender = new SenderMock(); // FIXME
 		addressesDictionary = new AddressesDictionary(); // TODO get from topology
+		this.config = config;
 		initialize(config);
+		iteration = 0;
 	}
 	
 	@Override
@@ -58,6 +65,14 @@ public abstract class AntsSimulation<Col, A extends Ant<Col, A>> implements Simu
 	}
 	
 	protected abstract void initialize(Configuration config);
+	
+	private void sendReport() {
+		Report report = generateReport();
+		Message<Report> message = new Message<Report>(report, addressesDictionary.getAddress("starter"), iteration);
+		sender.send(message);
+	}
+	
+	protected abstract Report generateReport();
 
 	@Override
 	public void doStep() {
@@ -86,13 +101,19 @@ public abstract class AntsSimulation<Col, A extends Ant<Col, A>> implements Simu
 		grid = newGrid;
 
 		send(migrations);
+		
+		iteration++;
+		
+		if (iteration % config.getOperationsBetweenReports() == 0) {
+			sendReport();
+		}
 	}
 	
 	private void send(Map<Direction, Migration<A>> migrations) {
 		for (Map.Entry<Direction, Migration<A>> entry : migrations.entrySet()) {
 			Migration<A> migration = entry.getValue();
 			String address = addressesDictionary.getAddress(entry.getKey().toString());
-			Message<Migration<A>> message = new Message<Migration<A>>(migration, address);
+			Message<Migration<A>> message = new Message<Migration<A>>(migration, address, iteration);
 			sender.send(message);
 		}
 	}

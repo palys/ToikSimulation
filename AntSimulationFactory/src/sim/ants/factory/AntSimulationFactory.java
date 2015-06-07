@@ -9,7 +9,7 @@ import sim.simulation.Simulation;
 
 public class AntSimulationFactory implements SimulationFactoryInterface {
 	
-	private final Configuration configuration;
+	protected final Configuration configuration;
 	
 	public AntSimulationFactory(Properties properties) throws IncorrectConfigurationException {
 		this.configuration = Configuration.of(properties);
