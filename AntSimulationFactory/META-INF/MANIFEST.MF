@@ -9,6 +9,6 @@ Import-Package: sim.communication,
  sim.factory,
  sim.mock,
  sim.simulation
-Export-Package: sim.ants,
- sim.ants.configuration,
+Export-Package: sim.ants;uses:="sim.communication,sim.simulation,sim.ants.configuration",
+ sim.ants.configuration;uses:="sim.configuration",
  sim.ants.factory
