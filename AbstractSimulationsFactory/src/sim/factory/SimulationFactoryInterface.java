@@ -10,4 +10,5 @@ public interface SimulationFactoryInterface {
 	public Simulation createSimulation() throws IncorrectConfigurationException;
 	
 	public void configure(Properties properties) throws IncorrectConfigurationException;
+
 }

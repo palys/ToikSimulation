@@ -6,5 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: sim.communication,
  sim.configuration,
- sim.factory,
- sim.simulation
+ sim.factory;uses:="sim.simulation",
+ sim.simulation;uses:="sim.communication"
+Import-Package: org.osgi.framework
