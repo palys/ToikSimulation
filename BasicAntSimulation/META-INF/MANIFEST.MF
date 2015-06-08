@@ -10,4 +10,6 @@ Import-Package: org.osgi.framework;version="1.8.0",
  sim.ants.factory,
  sim.communication,
  sim.configuration,
+ sim.factory,
  sim.simulation
+Bundle-Activator: sim.ants.simulation.Activator

@@ -4,16 +4,17 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
-import sim.ants.factory.AntSimulationFactory;
+import sim.factory.SimulationFactoryInterface;
 
 public class Activator implements BundleActivator {
 	
-	private ServiceRegistration<AntSimulationFactory> simulationRegistration;
+	private ServiceRegistration<SimulationFactoryInterface> simulationRegistration;
 
 	@Override
 	public void start(BundleContext context) throws Exception {
+		System.out.println("Start BasicAntSimulation");
 		BasicAntsSimulationFactory simulationFactory = new BasicAntsSimulationFactory();
-		simulationRegistration = context.registerService(AntSimulationFactory.class, simulationFactory, null);
+		simulationRegistration = context.registerService(SimulationFactoryInterface.class, simulationFactory, null);
 	}
 
 	@Override

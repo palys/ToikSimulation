@@ -1,7 +1,5 @@
 package sim.ants.simulation;
 
-import java.util.Properties;
-
 import sim.ants.factory.AntSimulationFactory;
 import sim.configuration.IncorrectConfigurationException;
 import sim.simulation.Simulation;
